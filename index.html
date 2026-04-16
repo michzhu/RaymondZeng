@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raymond Zeng — College Application</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Nunito:wght@300;400;500;600;700&family=Syne+Mono&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --orange: #FF6B2B;
+      --blue:   #1A5CFF;
+      --lime:   #B5E642;
+      --cream:  #FAFAF5;
+      --dark:   #14142B;
+      --mid:    #3D3D5C;
+      --card:   #FFFFFF;
+      --border: #E8E8E0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--dark);
+      font-family: 'Nunito', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ── BACKGROUND BLOBS ── */
+    .bg-blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-1 { width: 600px; height: 600px; top: -200px; right: -150px; background: radial-gradient(circle, rgba(255,107,43,0.12), transparent 70%); }
+    .blob-2 { width: 500px; height: 500px; bottom: 10%; left: -200px; background: radial-gradient(circle, rgba(26,92,255,0.1), transparent 70%); }
+    .blob-3 { width: 400px; height: 400px; top: 50%; left: 40%; background: radial-gradient(circle, rgba(181,230,66,0.08), transparent 70%); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 3rem;
+      background: rgba(250,250,245,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--dark);
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--orange); }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--mid);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s ease;
+    }
+    .nav-links a:hover { color: var(--orange); }
+
+    /* ── WRAPPER ── */
+    .wrapper { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 5rem;
+      padding-bottom: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 4rem;
+      align-items: center;
+      width: 100%;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--lime);
+      color: var(--dark);
+      font-family: 'Syne Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.35rem 0.9rem;
+      border-radius: 2rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.03em;
+    }
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(4rem, 8vw, 7.5rem);
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      color: var(--dark);
+    }
+    .hero-name .highlight { color: var(--orange); }
+    .hero-sub {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.2rem;
+      color: var(--mid);
+      margin-top: 1.8rem;
+      max-width: 520px;
+      line-height: 1.7;
+    }
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1.8rem;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 1rem;
+      border-radius: 2rem;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border: 2px solid;
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease;
+    }
+    .tag:hover { transform: translateY(-3px); }
+    .tag-orange { border-color: var(--orange); color: var(--orange); }
+    .tag-orange:hover { box-shadow: 0 6px 20px rgba(255,107,43,0.25); }
+    .tag-blue { border-color: var(--blue); color: var(--blue); }
+    .tag-blue:hover { box-shadow: 0 6px 20px rgba(26,92,255,0.2); }
+    .tag-lime { border-color: #8ab830; color: #6a9020; background: rgba(181,230,66,0.15); }
+    .tag-lime:hover { box-shadow: 0 6px 20px rgba(181,230,66,0.3); }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 2.5rem;
+      padding: 0.85rem 2rem;
+      background: var(--orange);
+      color: white;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border-radius: 2rem;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease;
+      box-shadow: 0 4px 24px rgba(255,107,43,0.35), 0 1px 4px rgba(255,107,43,0.2);
+    }
+    .hero-cta:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 32px rgba(255,107,43,0.45); }
+    .hero-cta:active { transform: translateY(0) scale(0.98); }
+
+    .hero-card {
+      background: var(--card);
+      border-radius: 2rem;
+      padding: 2.5rem;
+      border: 2px solid var(--border);
+      box-shadow: 0 8px 40px rgba(20,20,43,0.08), 0 2px 8px rgba(20,20,43,0.04);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(255,107,43,0.12), transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-card-avatar {
+      width: 90px; height: 90px;
+      background: linear-gradient(135deg, var(--orange), #ff9a6c);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 2rem;
+      color: white;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 4px 20px rgba(255,107,43,0.35);
+    }
+    .hero-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--dark);
+      letter-spacing: -0.02em;
+    }
+    .hero-card p {
+      font-size: 0.9rem;
+      color: var(--mid);
+      margin-top: 0.3rem;
+    }
+    .hero-card-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1.8rem;
+    }
+    .stat-box {
+      background: var(--cream);
+      border-radius: 1rem;
+      padding: 1rem;
+      text-align: center;
+      border: 1.5px solid var(--border);
+    }
+    .stat-box .stat-val {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--orange);
+      line-height: 1;
+    }
+    .stat-box .stat-label {
+      font-size: 0.72rem;
+      color: var(--mid);
+      margin-top: 0.25rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .hero-card-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+    .badge {
+      background: var(--cream);
+      border: 1.5px solid var(--border);
+      border-radius: 1rem;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.75rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      color: var(--mid);
+    }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 5rem 0; position: relative; z-index: 1; }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Syne Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--orange);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--orange);
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.03em;
+      color: var(--dark);
+      line-height: 1.1;
+    }
+
+    .section-title .accent { color: var(--orange); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
+    }
+
+    /* ── CARD BASE ── */
+    .card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      box-shadow: 0 2px 16px rgba(20,20,43,0.05);
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 36px rgba(20,20,43,0.1);
+      border-color: var(--orange);
+    }
+
+    /* ── EDUCATION ── */
+    #education .edu-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .edu-icon {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, var(--blue), #6a9fff);
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(26,92,255,0.25);
+    }
+    .edu-school {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--dark);
+      letter-spacing: -0.02em;
+    }
+    .edu-location {
+      font-size: 0.85rem;
+      color: var(--mid);
+      margin-top: 0.2rem;
+    }
+    .edu-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 1.2rem;
+    }
+    .edu-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--cream);
+      border: 1.5px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 0.45rem 1rem;
+      font-size: 0.82rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      color: var(--dark);
+    }
+    .edu-chip .chip-label { color: var(--mid); font-weight: 500; font-size: 0.75rem; }
+
+    .placeholder-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border: 2px dashed var(--border);
+      border-radius: 0.75rem;
+      padding: 0.45rem 1rem;
+      font-size: 0.82rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      color: #aaa;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .placeholder-chip:hover { border-color: var(--orange); color: var(--orange); }
+
+    /* ── ACTIVITIES GRID ── */
+    .activities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .activity-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .activity-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--orange);
+      border-radius: 4px 0 0 4px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .activity-card:hover::after { opacity: 1; }
+
+    .activity-icon {
+      font-size: 2rem;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+    .activity-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--dark);
+      letter-spacing: -0.01em;
+    }
+    .activity-role {
+      font-size: 0.8rem;
+      color: var(--orange);
+      font-weight: 700;
+      font-family: 'Syne', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 0.2rem;
+    }
+    .activity-desc {
+      font-size: 0.88rem;
+      color: var(--mid);
+      margin-top: 0.7rem;
+      line-height: 1.6;
+    }
+    .activity-duration {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      color: #999;
+      font-family: 'Syne Mono', monospace;
+    }
+
+    /* PLACEHOLDER CARD */
+    .placeholder-card {
+      border: 2px dashed var(--border);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      min-height: 160px;
+    }
+    .placeholder-card:hover {
+      border-color: var(--orange);
+      background: rgba(255,107,43,0.03);
+    }
+    .placeholder-card .ph-icon {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--cream);
+      border: 2px dashed var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+    }
+    .placeholder-card .ph-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+    .placeholder-card .ph-sub {
+      font-size: 0.78rem;
+      color: #bbb;
+      margin-top: 0.3rem;
+    }
+
+    /* ── VOLUNTEERING ── */
+    .volunteer-list { display: flex; flex-direction: column; gap: 1.2rem; margin-top: 2.5rem; }
+    .volunteer-item {
+      display: grid;
+      grid-template-columns: 48px 1fr auto;
+      align-items: start;
+      gap: 1.2rem;
+    }
+    .vol-num {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, var(--lime), #d4f07a);
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: #4a6b00;
+      flex-shrink: 0;
+    }
+    .vol-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--dark);
+    }
+    .vol-org {
+      font-size: 0.82rem;
+      color: var(--mid);
+      margin-top: 0.15rem;
+    }
+    .vol-desc {
+      font-size: 0.85rem;
+      color: var(--mid);
+      margin-top: 0.5rem;
+      line-height: 1.55;
+    }
+    .vol-hours {
+      font-family: 'Syne Mono', monospace;
+      font-size: 0.78rem;
+      color: #4a6b00;
+      background: rgba(181,230,66,0.25);
+      border: 1.5px solid rgba(181,230,66,0.5);
+      border-radius: 0.5rem;
+      padding: 0.3rem 0.7rem;
+      white-space: nowrap;
+      align-self: start;
+    }
+
+    /* ── AWARDS ── */
+    .awards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.2rem;
+      margin-top: 2.5rem;
+    }
+    .award-card {
+      text-align: center;
+      padding: 2rem 1.5rem;
+    }
+    .award-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+    .award-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--dark);
+    }
+    .award-body {
+      font-size: 0.82rem;
+      color: var(--mid);
+      margin-top: 0.4rem;
+      line-height: 1.55;
+    }
+
+    /* ── INTERESTS ── */
+    .interests-row {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 2.5rem;
+    }
+    .interest-pill {
+      flex: 1;
+      min-width: 220px;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      text-align: center;
+      border: 2px solid var(--border);
+      background: var(--card);
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease;
+    }
+    .interest-pill:hover { transform: translateY(-4px); }
+    .interest-pill.ip-orange { border-color: rgba(255,107,43,0.4); background: linear-gradient(135deg, rgba(255,107,43,0.06), rgba(255,107,43,0.02)); }
+    .interest-pill.ip-blue   { border-color: rgba(26,92,255,0.3); background: linear-gradient(135deg, rgba(26,92,255,0.06), rgba(26,92,255,0.02)); }
+    .interest-pill.ip-lime   { border-color: rgba(181,230,66,0.5); background: linear-gradient(135deg, rgba(181,230,66,0.1), rgba(181,230,66,0.03)); }
+    .interest-pill .ip-emoji { font-size: 2.5rem; margin-bottom: 0.7rem; display: block; }
+    .interest-pill .ip-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--dark);
+    }
+    .interest-pill .ip-desc { font-size: 0.85rem; color: var(--mid); margin-top: 0.4rem; }
+
+    /* ── ESSAY / PERSONAL STATEMENT ── */
+    .essay-card {
+      background: linear-gradient(135deg, var(--dark) 0%, #2a2a5a 100%);
+      border-radius: 2rem;
+      padding: 3rem;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .essay-card::before {
+      content: '"';
+      position: absolute;
+      top: -1rem; left: 1.5rem;
+      font-family: 'Syne', sans-serif;
+      font-size: 12rem;
+      font-weight: 800;
+      color: rgba(255,107,43,0.15);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .essay-card .section-label { color: var(--lime); }
+    .essay-card .section-label::before { background: var(--lime); }
+    .essay-card h2 { color: white; }
+    .essay-placeholder {
+      margin-top: 1.5rem;
+      padding: 2rem;
+      border: 2px dashed rgba(255,255,255,0.2);
+      border-radius: 1.2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .essay-placeholder:hover { border-color: rgba(255,107,43,0.6); background: rgba(255,107,43,0.05); }
+    .essay-placeholder p {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.9rem;
+    }
+    .essay-placeholder .ep-hint {
+      display: inline-block;
+      margin-top: 0.8rem;
+      background: rgba(255,107,43,0.2);
+      color: rgba(255,107,43,0.9);
+      font-family: 'Syne', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.3rem 0.8rem;
+      border-radius: 1rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ── SKILLS SECTION ── */
+    .skills-row { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 2rem; }
+    .skill-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1.1rem;
+      border-radius: 2rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      color: var(--dark);
+      transition: transform 0.2s ease, border-color 0.2s, box-shadow 0.2s;
+    }
+    .skill-tag:hover { transform: translateY(-2px); border-color: var(--blue); box-shadow: 0 4px 14px rgba(26,92,255,0.15); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 2.5rem;
+      font-size: 0.82rem;
+      font-family: 'Syne', sans-serif;
+    }
+    footer span { color: var(--orange); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22,1,0.36,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-card { display: none; }
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Background blobs -->
+<div class="bg-blob blob-1"></div>
+<div class="bg-blob blob-2"></div>
+<div class="bg-blob blob-3"></div>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">Raymond<span>.</span></div>
+  <div class="nav-links">
+    <a href="#education">Education</a>
+    <a href="#activities">Activities</a>
+    <a href="#volunteering">Volunteering</a>
+    <a href="#awards">Awards</a>
+    <a href="#essays">Essays</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <!-- Decorative large text -->
+  <div aria-hidden="true" style="position:absolute;bottom:-2rem;left:-1rem;font-family:'Syne',sans-serif;font-weight:800;font-size:22vw;line-height:1;color:rgba(255,107,43,0.04);letter-spacing:-0.04em;pointer-events:none;user-select:none;white-space:nowrap;z-index:0;">2026</div>
+  <div class="wrapper">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow reveal">🎓 Class of 2026 · College Application</div>
+        <h1 class="hero-name reveal reveal-delay-1">
+          Raymond<br><span class="highlight">Zeng</span>
+        </h1>
+        <p class="hero-sub reveal reveal-delay-2">
+          Junior at Lake Washington High School, Kirkland, WA — writer, artist, and cyclist with a passion for making an impact.
+        </p>
+        <div class="hero-tags reveal reveal-delay-3">
+          <span class="tag tag-orange">✍️ Writing</span>
+          <span class="tag tag-blue">🎨 Drawing</span>
+          <span class="tag tag-lime">🚴 Cycling</span>
+        </div>
+        <a href="#education" class="hero-cta reveal reveal-delay-4">
+          View Application &rarr;
+        </a>
+      </div>
+
+      <div class="hero-card reveal reveal-delay-2">
+        <div class="hero-card-avatar">RZ</div>
+        <h3>Raymond Zeng</h3>
+        <p>Lake Washington High School</p>
+        <div class="hero-card-stats">
+          <div class="stat-box">
+            <div class="stat-val">11th</div>
+            <div class="stat-label">Grade</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val" id="year">2026</div>
+            <div class="stat-label">Grad Year</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val">WA</div>
+            <div class="stat-label">State</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val">—</div>
+            <div class="stat-label">GPA</div>
+          </div>
+        </div>
+        <div class="hero-card-badges">
+          <span class="badge">Writer</span>
+          <span class="badge">Artist</span>
+          <span class="badge">Cyclist</span>
+          <span class="badge">Kirkland, WA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── EDUCATION ── -->
+<section id="education">
+  <div class="wrapper">
+    <div class="reveal">
+      <div class="section-label">Education</div>
+      <h2 class="section-title">Academic <span class="accent">Background</span></h2>
+    </div>
+
+    <div style="margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.5rem;">
+      <!-- Current School -->
+      <div class="card reveal reveal-delay-1">
+        <div class="edu-card">
+          <div class="edu-icon">🏫</div>
+          <div>
+            <div class="edu-school">Lake Washington High School</div>
+            <div class="edu-location">📍 Kirkland, WA &nbsp;·&nbsp; Expected Graduation: June 2026</div>
+            <div class="edu-meta">
+              <div class="edu-chip">
+                <span class="chip-label">GPA</span>
+                <span>— / 4.0 &nbsp;<span class="placeholder-chip" style="font-size:0.7rem;padding:0.2rem 0.6rem;">+ Add GPA</span></span>
+              </div>
+              <div class="edu-chip">
+                <span class="chip-label">SAT / ACT</span>
+                <span class="placeholder-chip" style="font-size:0.7rem;padding:0.2rem 0.6rem;">+ Add Score</span>
+              </div>
+              <div class="edu-chip">
+                <span class="chip-label">AP Courses</span>
+                <span class="placeholder-chip" style="font-size:0.7rem;padding:0.2rem 0.6rem;">+ Add Courses</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coursework / Honors placeholder -->
+      <div class="card reveal reveal-delay-2" style="display:flex;align-items:center;gap:1.5rem;">
+        <div style="width:48px;height:48px;background:linear-gradient(135deg,var(--lime),#d4f07a);border-radius:1rem;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">📚</div>
+        <div style="flex:1;">
+          <div class="edu-school" style="font-size:1rem;">Honors & AP / IB Coursework</div>
+          <div class="edu-location">List your advanced courses here</div>
+          <div class="edu-meta" style="margin-top:0.8rem;">
+            <span class="placeholder-chip">+ Add Course</span>
+            <span class="placeholder-chip">+ Add Course</span>
+            <span class="placeholder-chip">+ Add Course</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── EXTRACURRICULAR ACTIVITIES ── -->
+<section id="activities">
+  <div class="wrapper">
+    <div class="reveal">
+      <div class="section-label">Extracurriculars</div>
+      <h2 class="section-title">Activities & <span class="accent">Involvement</span></h2>
+    </div>
+
+    <div class="activities-grid">
+      <!-- Placeholder cards — user will fill these in -->
+      <div class="card activity-card reveal reveal-delay-1">
+        <span class="activity-icon">✍️</span>
+        <div class="activity-title">Activity Name Here</div>
+        <div class="activity-role">Your Role / Position</div>
+        <div class="activity-desc">Brief description of what you did, what you contributed, and any impact you made. Paste your details here.</div>
+        <span class="activity-duration">Month YYYY – Present</span>
+      </div>
+
+      <div class="card activity-card reveal reveal-delay-2">
+        <span class="activity-icon">🎨</span>
+        <div class="activity-title">Activity Name Here</div>
+        <div class="activity-role">Your Role / Position</div>
+        <div class="activity-desc">Brief description of your role, responsibilities, and accomplishments.</div>
+        <span class="activity-duration">Month YYYY – Month YYYY</span>
+      </div>
+
+      <div class="card activity-card reveal reveal-delay-3">
+        <span class="activity-icon">🚴</span>
+        <div class="activity-title">Activity Name Here</div>
+        <div class="activity-role">Your Role / Position</div>
+        <div class="activity-desc">What you did and why it matters. Include any leadership or achievements.</div>
+        <span class="activity-duration">Month YYYY – Present</span>
+      </div>
+
+      <div class="placeholder-card reveal reveal-delay-4" onclick="this.innerHTML='<div class=\'activity-title\'>New Activity</div>'">
+        <div class="ph-icon">＋</div>
+        <div class="ph-title">Add Activity</div>
+        <div class="ph-sub">Paste your extracurricular here</div>
+      </div>
+
+      <div class="placeholder-card reveal reveal-delay-4">
+        <div class="ph-icon">＋</div>
+        <div class="ph-title">Add Activity</div>
+        <div class="ph-sub">Clubs, sports, organizations...</div>
+      </div>
+
+      <div class="placeholder-card reveal reveal-delay-4">
+        <div class="ph-icon">＋</div>
+        <div class="ph-title">Add Activity</div>
+        <div class="ph-sub">Leadership, internships, jobs...</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── VOLUNTEERING ── -->
+<section id="volunteering">
+  <div class="wrapper">
+    <div class="reveal">
+      <div class="section-label">Community Service</div>
+      <h2 class="section-title">Volunteering & <span class="accent">Service</span></h2>
+    </div>
+
+    <div class="volunteer-list">
+      <div class="card volunteer-item reveal reveal-delay-1">
+        <div class="vol-num">01</div>
+        <div>
+          <div class="vol-title">Organization / Event Name</div>
+          <div class="vol-org">Organization · Location</div>
+          <div class="vol-desc">Describe your role, what you did, and the impact you had. Include specifics like number of people helped or events organized.</div>
+        </div>
+        <div class="vol-hours">— hrs</div>
+      </div>
+
+      <div class="card volunteer-item reveal reveal-delay-2">
+        <div class="vol-num">02</div>
+        <div>
+          <div class="vol-title">Organization / Event Name</div>
+          <div class="vol-org">Organization · Location</div>
+          <div class="vol-desc">Describe your volunteer work and its community impact here.</div>
+        </div>
+        <div class="vol-hours">— hrs</div>
+      </div>
+
+      <div class="card volunteer-item reveal reveal-delay-3">
+        <div class="vol-num">03</div>
+        <div>
+          <div class="vol-title">Organization / Event Name</div>
+          <div class="vol-org">Organization · Location</div>
+          <div class="vol-desc">What did you contribute? What skills did you develop?</div>
+        </div>
+        <div class="vol-hours">— hrs</div>
+      </div>
+
+      <!-- Add more placeholder -->
+      <div class="placeholder-card reveal reveal-delay-4" style="flex-direction:row;justify-content:flex-start;text-align:left;min-height:auto;padding:1.2rem 2rem;">
+        <div class="ph-icon" style="margin-bottom:0;margin-right:1rem;flex-shrink:0;">＋</div>
+        <div>
+          <div class="ph-title">Add Volunteer Experience</div>
+          <div class="ph-sub">Paste your volunteering details here</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── AWARDS & HONORS ── -->
+<section id="awards">
+  <div class="wrapper">
+    <div class="reveal">
+      <div class="section-label">Recognition</div>
+      <h2 class="section-title">Awards & <span class="accent">Honors</span></h2>
+    </div>
+
+    <div class="awards-grid">
+      <div class="card award-card reveal reveal-delay-1">
+        <span class="award-icon">🏆</span>
+        <div class="award-title">Award Name Here</div>
+        <div class="award-body">Brief description — issuing organization, year, and why you received it.</div>
+      </div>
+      <div class="card award-card reveal reveal-delay-2">
+        <span class="award-icon">🥇</span>
+        <div class="award-title">Award Name Here</div>
+        <div class="award-body">Level: School / District / State / National &middot; Year</div>
+      </div>
+      <div class="card award-card reveal reveal-delay-3">
+        <span class="award-icon">⭐</span>
+        <div class="award-title">Honor / Scholarship</div>
+        <div class="award-body">Any scholarships, honor rolls, or special recognition received.</div>
+      </div>
+      <div class="placeholder-card reveal reveal-delay-4">
+        <div class="ph-icon">＋</div>
+        <div class="ph-title">Add Award</div>
+        <div class="ph-sub">Competitions, scholarships, honor roll...</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── PERSONAL ESSAYS ── -->
+<section id="essays">
+  <div class="wrapper">
+    <div class="essay-card reveal">
+      <div class="section-label">Personal Statement</div>
+      <h2 class="section-title" style="color:white;">Your <span class="accent">Story</span></h2>
+      <p style="color:rgba(255,255,255,0.6);margin-top:0.8rem;max-width:580px;font-size:0.95rem;">
+        Your personal statement is where admissions officers get to know the real you — your values, voice, and what you'll bring to campus.
+      </p>
+      <div class="essay-placeholder" style="margin-top:2rem;">
+        <p>Your personal essay / common app essay goes here.</p>
+        <p style="margin-top:0.5rem;font-size:0.8rem;">650 words max · First-person narrative · Your unique story</p>
+        <span class="ep-hint">+ Paste Your Essay</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:1.5rem;">
+        <div class="essay-placeholder">
+          <p>Supplemental Essay #1</p>
+          <p style="margin-top:0.3rem;font-size:0.78rem;">Why this college? / Why this major?</p>
+          <span class="ep-hint">+ Add Essay</span>
+        </div>
+        <div class="essay-placeholder">
+          <p>Supplemental Essay #2</p>
+          <p style="margin-top:0.3rem;font-size:0.78rem;">Diversity / Community contribution</p>
+          <span class="ep-hint">+ Add Essay</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── SKILLS & INTERESTS ── -->
+<section id="interests">
+  <div class="wrapper">
+    <div class="reveal">
+      <div class="section-label">Skills & Interests</div>
+      <h2 class="section-title">What Makes Raymond <span class="accent">Unique</span></h2>
+    </div>
+
+    <div class="interests-row" style="margin-top:2.5rem;">
+      <div class="interest-pill ip-orange reveal reveal-delay-1">
+        <span class="ip-emoji">✍️</span>
+        <div class="ip-name">Writing</div>
+        <div class="ip-desc">Creative expression through stories, essays, and poetry — finding the right words to connect ideas and people.</div>
+      </div>
+      <div class="interest-pill ip-blue reveal reveal-delay-2">
+        <span class="ip-emoji">🎨</span>
+        <div class="ip-name">Drawing</div>
+        <div class="ip-desc">Visual art as a language — sketching, illustration, and design to communicate beyond words.</div>
+      </div>
+      <div class="interest-pill ip-lime reveal reveal-delay-3">
+        <span class="ip-emoji">🚴</span>
+        <div class="ip-name">Cycling</div>
+        <div class="ip-desc">Exploring the Pacific Northwest on two wheels — building endurance, discipline, and a love for the outdoors.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:3rem;" class="reveal">
+      <div class="section-label">Skills</div>
+      <div class="skills-row">
+        <span class="skill-tag">📝 Creative Writing</span>
+        <span class="skill-tag">✏️ Illustration</span>
+        <span class="skill-tag">🖥️ Technology</span>
+        <span class="skill-tag">🗣️ Communication</span>
+        <span class="skill-tag placeholder-chip">+ Add Skill</span>
+        <span class="skill-tag placeholder-chip">+ Add Skill</span>
+        <span class="skill-tag placeholder-chip">+ Add Language</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── RECOMMENDATIONS PLACEHOLDER ── -->
+<section id="recommendations">
+  <div class="wrapper">
+    <div class="reveal">
+      <div class="section-label">Recommendations</div>
+      <h2 class="section-title">Letters of <span class="accent">Recommendation</span></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;margin-top:2.5rem;">
+      <div class="placeholder-card reveal reveal-delay-1">
+        <div class="ph-icon">👩‍🏫</div>
+        <div class="ph-title">Teacher Recommender #1</div>
+        <div class="ph-sub">Subject · Relationship description</div>
+      </div>
+      <div class="placeholder-card reveal reveal-delay-2">
+        <div class="ph-icon">👨‍🏫</div>
+        <div class="ph-title">Teacher Recommender #2</div>
+        <div class="ph-sub">Subject · Relationship description</div>
+      </div>
+      <div class="placeholder-card reveal reveal-delay-3">
+        <div class="ph-icon">🏫</div>
+        <div class="ph-title">Counselor Recommendation</div>
+        <div class="ph-sub">School counselor letter</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>Raymond Zeng · Lake Washington High School · Class of <span>2026</span></p>
+  <p style="margin-top:0.4rem;">Kirkland, WA · michzhu@gmail.com</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  revealEls.forEach(el => observer.observe(el));
+
+  // Trigger hero reveals immediately
+  document.querySelectorAll('#hero .reveal').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), i * 120);
+  });
+
+  // Fallback: ensure all reveals are visible after 2s (for static screenshots)
+  setTimeout(() => {
+    revealEls.forEach(el => el.classList.add('visible'));
+  }, 2000);
+</script>
+</body>
+</html>
