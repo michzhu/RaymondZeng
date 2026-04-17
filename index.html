@@ -745,8 +745,7 @@
 <!-- ── HERO ── -->
 <section id="hero">
   <!-- Decorative large text -->
-  <div aria-hidden="true" style="position:absolute;bottom:-2rem;left:-1rem;font-family:'Syne',sans-serif;font-weight:800;font-size:22vw;line-height:1;color:rgba(255,107,43,0.06);letter-spacing:-0.04em;pointer-events:none;user-select:none;white-space:nowrap;z-index:1;">2027</div>
-  <div class="wrapper">
+<div class="wrapper">
     <div class="hero-grid">
       <div>
         <div class="hero-eyebrow reveal">🎓 Class of 2027 · College Application</div>
@@ -816,7 +815,9 @@
       <!-- Main High School -->
       <div class="card reveal reveal-delay-1">
         <div class="edu-card">
-          <div class="edu-icon">🏫</div>
+          <div class="edu-icon" style="background:white;padding:4px;">
+            <img src="assets/lake_washington_high_school_logo.jpeg" alt="Lake Washington High School" style="width:100%;height:100%;object-fit:contain;border-radius:0.5rem;" />
+          </div>
           <div>
             <div class="edu-school">Lake Washington High School</div>
             <div class="edu-location">📍 Kirkland, WA &nbsp;·&nbsp; Expected Graduation: June 2027</div>
@@ -838,31 +839,35 @@
         </div>
       </div>
 
-      <!-- UW Summer 2025 -->
+      <!-- UW Coding in Python I -->
       <div class="card reveal reveal-delay-2">
         <div class="edu-card">
-          <div class="edu-icon" style="background:linear-gradient(135deg,#4b2e83,#8565c4);">🎓</div>
+          <div class="edu-icon" style="background:#4b2e83;padding:6px;">
+            <img src="assets/university_of_washington_logo.jpeg" alt="University of Washington" style="width:100%;height:100%;object-fit:contain;border-radius:0.4rem;" />
+          </div>
           <div>
-            <div class="edu-school">University of Washington</div>
-            <div class="edu-location">📍 Seattle, WA &nbsp;·&nbsp; Summer 2025</div>
+            <div class="edu-school">Coding in Python I</div>
+            <div class="edu-location">UW Youth & Teen Programs &nbsp;·&nbsp; Seattle, WA &nbsp;·&nbsp; Summer 2025</div>
             <div class="edu-meta">
-              <div class="edu-chip"><span class="chip-label">Course</span> Coding in Python I</div>
-              <div class="edu-chip"><span class="chip-label">Type</span> Summer Program</div>
+              <div class="edu-chip"><span class="chip-label">Program</span> UW Youth & Teen Programs</div>
+              <div class="edu-chip"><span class="chip-label">Credential</span> 🏅 Digital Badge</div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Writers Workshop -->
+      <!-- UW Writers Workshop -->
       <div class="card reveal reveal-delay-3">
         <div class="edu-card">
-          <div class="edu-icon" style="background:linear-gradient(135deg,var(--orange),#ffaa6c);">✍️</div>
+          <div class="edu-icon" style="background:#4b2e83;padding:6px;">
+            <img src="assets/university_of_washington_logo.jpeg" alt="University of Washington" style="width:100%;height:100%;object-fit:contain;border-radius:0.4rem;" />
+          </div>
           <div>
-            <div class="edu-school">Writers Workshop for High School</div>
-            <div class="edu-location">Grades 9–12 (3A) &nbsp;·&nbsp; Digital Badge Earned</div>
+            <div class="edu-school">Writers Workshop for High School (3A)</div>
+            <div class="edu-location">UW Youth & Teen Programs &nbsp;·&nbsp; Grades 9–12 &nbsp;·&nbsp; Summer 2025</div>
             <div class="edu-meta">
+              <div class="edu-chip"><span class="chip-label">Program</span> UW Youth & Teen Programs</div>
               <div class="edu-chip"><span class="chip-label">Credential</span> 🏅 Digital Badge</div>
-              <div class="edu-chip"><span class="chip-label">Focus</span> Creative Writing</div>
             </div>
           </div>
         </div>
@@ -871,7 +876,9 @@
       <!-- WANIC / DigiPen -->
       <div class="card reveal reveal-delay-4">
         <div class="edu-card">
-          <div class="edu-icon" style="background:linear-gradient(135deg,#0077b6,#48cae4);">🎨</div>
+          <div class="edu-icon" style="background:#c8102e;padding:4px;">
+            <img src="assets/digipen_institute_of_technology_logo.jpeg" alt="DigiPen" style="width:100%;height:100%;object-fit:contain;border-radius:0.4rem;" />
+          </div>
           <div>
             <div class="edu-school">WANIC — DigiPen Intro to Art & Animation</div>
             <div class="edu-location">📍 9931 Willows Road NE, Redmond, WA 98052 &nbsp;·&nbsp; Summer 2024</div>
@@ -899,17 +906,8 @@
 
     <div class="activities-grid">
 
-      <!-- D&D / Aspiring Youth -->
-      <div class="card activity-card reveal reveal-delay-1">
-        <span class="activity-icon">🎲</span>
-        <div class="activity-title">Dungeons & Dragons</div>
-        <div class="activity-role">Player · Aspiring Youth</div>
-        <div class="activity-desc">The antidote to videogames — D&D builds patience, listening skills, teamwork, and communication as players work through in-game challenges designed to address real-life goals. Meets at Aspiring Youth, Kirkland.</div>
-        <span class="activity-duration">Ongoing · Kirkland, WA</span>
-      </div>
-
       <!-- Drawing -->
-      <div class="card activity-card reveal reveal-delay-2">
+      <div class="card activity-card reveal reveal-delay-1">
         <span class="activity-icon">🎨</span>
         <div class="activity-title">Visual Art & Drawing</div>
         <div class="activity-role">Artist · Personal Practice</div>
@@ -923,7 +921,7 @@
       </div>
 
       <!-- Writing -->
-      <div class="card activity-card reveal reveal-delay-3">
+      <div class="card activity-card reveal reveal-delay-2">
         <span class="activity-icon">✍️</span>
         <div class="activity-title">Creative Writing</div>
         <div class="activity-role">Writer · Personal Practice</div>
@@ -936,7 +934,7 @@
       </div>
 
       <!-- Cycling -->
-      <div class="card activity-card reveal reveal-delay-4">
+      <div class="card activity-card reveal reveal-delay-3">
         <span class="activity-icon">🚴</span>
         <div class="activity-title">Cycling</div>
         <div class="activity-role">Cyclist · Pacific Northwest</div>
@@ -945,18 +943,35 @@
       </div>
 
       <!-- Copilot / Aviation -->
-      <div class="card activity-card reveal reveal-delay-1">
-        <span class="activity-icon">✈️</span>
-        <div class="activity-title">Copilot Experience — Small Aircraft</div>
-        <div class="activity-role">Student Copilot · Spokane, WA</div>
-        <div class="activity-desc">Flew as copilot on a small aircraft in Spokane, WA — gaining hands-on aviation experience and a firsthand feel for flight fundamentals, navigation, and cockpit communication.</div>
-        <span class="activity-duration">Spokane, WA</span>
+      <div class="card activity-card reveal reveal-delay-4" style="padding:0;overflow:hidden;">
+        <div style="position:relative;height:200px;overflow:hidden;">
+          <img src="assets/32DF7DF0-D897-4618-84F1-48800CB7EB6C_1_105_c.jpeg"
+               alt="Raymond as copilot in small aircraft cockpit over Spokane"
+               style="width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;" />
+          <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(20,20,43,0) 40%, rgba(20,20,43,0.65) 100%);"></div>
+          <span style="position:absolute;bottom:0.9rem;left:1.2rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.72rem;color:rgba(255,255,255,0.85);letter-spacing:0.08em;text-transform:uppercase;">Spokane, WA · In-Flight</span>
+        </div>
+        <div style="padding:1.5rem;">
+          <span class="activity-icon" style="margin-bottom:0.4rem;">✈️</span>
+          <div class="activity-title">Copilot Experience — Small Aircraft</div>
+          <div class="activity-role">Student Copilot · Spokane, WA</div>
+          <div class="activity-desc">Flew as copilot on a small aircraft in Spokane, WA — gaining hands-on aviation experience and a firsthand feel for flight fundamentals, navigation, and cockpit communication.</div>
+        </div>
       </div>
 
-      <div class="placeholder-card reveal reveal-delay-2">
-        <div class="ph-icon">＋</div>
-        <div class="ph-title">Add Activity</div>
-        <div class="ph-sub">Clubs, sports, organizations...</div>
+      <!-- D&D / Aspiring Youth — last -->
+      <div class="card activity-card reveal reveal-delay-1" style="padding:0;overflow:hidden;">
+        <div style="position:relative;height:160px;overflow:hidden;">
+          <img src="assets/dundeons&dragons.webp" alt="Dungeons & Dragons" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;" />
+          <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(20,20,43,0.1) 30%,rgba(20,20,43,0.7) 100%);"></div>
+          <span style="position:absolute;bottom:0.9rem;left:1.2rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.72rem;color:rgba(255,255,255,0.9);letter-spacing:0.08em;text-transform:uppercase;">Aspiring Youth · Kirkland, WA</span>
+        </div>
+        <div style="padding:1.5rem;">
+          <span class="activity-icon" style="margin-bottom:0.4rem;">🎲</span>
+          <div class="activity-title">Dungeons & Dragons</div>
+          <div class="activity-role">Player · Aspiring Youth</div>
+          <div class="activity-desc">The antidote to videogames — D&D builds patience, listening skills, teamwork, and communication as players work through in-game challenges designed to address real-life goals.</div>
+        </div>
       </div>
 
     </div>

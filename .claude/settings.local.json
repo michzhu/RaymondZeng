@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git init *)",
+      "Bash(git remote *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(node serve.mjs)",
+      "Bash(node *)",
+      "Bash(npx puppeteer *)",
+      "Bash(npm init *)",
+      "Bash(npm install *)",
+      "Bash(lsof -ti:3000)",
+      "Bash(lsof -ti:3000 -sTCP:LISTEN)",
+      "Bash(xargs ps *)"
+    ]
+  }
+}
